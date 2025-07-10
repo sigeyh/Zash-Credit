@@ -3,121 +3,83 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PESA TALA - Other Details</title>
+  <title>Other Details - Zash Loans</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gradient-to-br from-purple-900 via-purple-700 to-gray-300 min-h-screen flex items-center justify-center px-4 py-8 text-white">
+<body class="bg-gradient-to-tr from-red-700 via-red-500 to-pink-300 min-h-screen flex items-center justify-center p-4 text-red-900">
 
-  <!-- Form Section -->
-  <div id="formSection" class="bg-white/10 backdrop-blur-lg p-6 rounded-2xl shadow-2xl w-full max-w-md">
-    <h2 class="text-2xl font-bold text-center mb-6 text-white">Additional Information</h2>
+  <div class="bg-white/90 backdrop-blur-md rounded-2xl shadow-2xl max-w-sm w-full p-6">
+    <div class="text-center mb-6">
+      <img src="zash-logo.jpeg" alt="Zash Loans Logo" class="w-16 h-16 mx-auto mb-2 rounded-full shadow" />
+      <h1 class="text-2xl font-bold">Additional Details</h1>
+      <p class="text-sm text-gray-600">Provide more info to proceed</p>
+    </div>
 
     <form id="detailsForm" class="space-y-4">
+      <select id="education" required class="w-full p-3 border border-red-300 rounded-xl focus:ring-2 focus:ring-red-500">
+        <option value="">-- Select Education Level --</option>
+        <option value="Primary">Primary</option>
+        <option value="Secondary">Secondary</option>
+        <option value="Tertiary">Tertiary</option>
+        <option value="University">University</option>
+      </select>
 
-      <!-- Education -->
-      <div>
-        <label for="education" class="block text-sm font-semibold mb-1">Education Level</label>
-        <select id="education" class="w-full p-2 rounded text-black" required>
-          <option value="" disabled selected>Select</option>
-          <option>Primary</option>
-          <option>Secondary</option>
-          <option>College</option>
-          <option>University</option>
-          <option>None</option>
-        </select>
-      </div>
+      <select id="employment" required class="w-full p-3 border border-red-300 rounded-xl focus:ring-2 focus:ring-red-500">
+        <option value="">-- Employment Status --</option>
+        <option value="Employed">Employed</option>
+        <option value="Self-Employed">Self-Employed</option>
+        <option value="Unemployed">Unemployed</option>
+        <option value="Student">Student</option>
+      </select>
 
-      <!-- Employment -->
-      <div>
-        <label for="employment" class="block text-sm font-semibold mb-1">Employment Status</label>
-        <select id="employment" class="w-full p-2 rounded text-black" required>
-          <option value="" disabled selected>Select</option>
-          <option>Employed</option>
-          <option>Self-Employed</option>
-          <option>Unemployed</option>
-          <option>Student</option>
-          <option>Other</option>
-        </select>
-      </div>
+      <select id="loanPurpose" required class="w-full p-3 border border-red-300 rounded-xl focus:ring-2 focus:ring-red-500">
+        <option value="">-- Purpose of Loan --</option>
+        <option value="Business">Business</option>
+        <option value="Medical">Medical</option>
+        <option value="School Fees">School Fees</option>
+        <option value="Emergency">Emergency</option>
+        <option value="Other">Other</option>
+      </select>
 
-      <!-- Purpose -->
-      <div>
-        <label for="purpose" class="block text-sm font-semibold mb-1">Loan Purpose</label>
-        <select id="purpose" class="w-full p-2 rounded text-black" required>
-          <option value="" disabled selected>Select</option>
-          <option>Business</option>
-          <option>Education</option>
-          <option>Medical</option>
-          <option>Emergency</option>
-          <option>Personal Use</option>
-        </select>
-      </div>
+      <input type="text" id="refereeName" placeholder="Referee Full Name" class="w-full p-3 border border-red-300 rounded-xl" />
+      <input type="tel" id="refereePhone" placeholder="Referee Phone (e.g., 0712xxxxxx)" class="w-full p-3 border border-red-300 rounded-xl" />
+      
+      <select id="relationship" class="w-full p-3 border border-red-300 rounded-xl focus:ring-2 focus:ring-red-500">
+        <option value="">-- Relationship --</option>
+        <option value="Parent">Parent</option>
+        <option value="Sibling">Sibling</option>
+        <option value="Spouse">Spouse</option>
+        <option value="Friend">Friend</option>
+        <option value="Colleague">Colleague</option>
+      </select>
 
-      <!-- Referee -->
-      <div>
-        <label class="block text-sm font-semibold mb-1">Referee Name</label>
-        <input type="text" id="refName" class="w-full p-2 rounded text-black" placeholder="e.g. Jane Doe" required>
-      </div>
-
-      <div>
-        <label class="block text-sm font-semibold mb-1">Referee Phone</label>
-        <input type="tel" id="refPhone" class="w-full p-2 rounded text-black" placeholder="e.g. 0712345678" required>
-      </div>
-
-      <div>
-        <label class="block text-sm font-semibold mb-1">Relationship</label>
-        <select id="refRelation" class="w-full p-2 rounded text-black" required>
-          <option value="" disabled selected>Select</option>
-          <option>Parent</option>
-          <option>Sibling</option>
-          <option>Friend</option>
-          <option>Spouse</option>
-          <option>Colleague</option>
-        </select>
-      </div>
-
-      <!-- Submit -->
-      <button type="submit" class="w-full mt-4 bg-yellow-400 text-purple-900 py-2 rounded-xl font-bold shadow-md hover:bg-yellow-300 transition">
-        Submit
+      <button type="submit" class="w-full bg-gradient-to-r from-red-600 to-pink-500 hover:from-red-700 hover:to-pink-600 text-white font-semibold py-3 rounded-xl shadow-lg transition">
+        Proceed
       </button>
     </form>
   </div>
 
-  <!-- Loading Section -->
-  <div id="loadingSection" class="hidden flex flex-col items-center justify-center text-center">
-    <svg class="animate-spin h-12 w-12 text-yellow-400 mb-4" viewBox="0 0 24 24">
-      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="white" stroke-width="4" fill="none"></circle>
-      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
-    </svg>
-    <p class="text-white text-lg font-semibold">Processing your details...</p>
-  </div>
-
-  <!-- Script -->
   <script>
-    const form = document.getElementById("detailsForm");
-    const formSection = document.getElementById("formSection");
-    const loadingSection = document.getElementById("loadingSection");
-
-    form.addEventListener("submit", function (e) {
+    document.getElementById("detailsForm").addEventListener("submit", function (e) {
       e.preventDefault();
 
-      // Save to localStorage
-      localStorage.setItem("education", document.getElementById("education").value);
-      localStorage.setItem("employment", document.getElementById("employment").value);
-      localStorage.setItem("purpose", document.getElementById("purpose").value);
-      localStorage.setItem("refName", document.getElementById("refName").value);
-      localStorage.setItem("refPhone", document.getElementById("refPhone").value);
-      localStorage.setItem("refRelation", document.getElementById("refRelation").value);
+      const education = document.getElementById("education").value;
+      const employment = document.getElementById("employment").value;
+      const loanPurpose = document.getElementById("loanPurpose").value;
+      const refereeName = document.getElementById("refereeName").value;
+      const refereePhone = document.getElementById("refereePhone").value;
+      const relationship = document.getElementById("relationship").value;
 
-      // Show loading
-      formSection.style.display = "none";
-      loadingSection.classList.remove("hidden");
+      localStorage.setItem("education", education);
+      localStorage.setItem("employment", employment);
+      localStorage.setItem("loanPurpose", loanPurpose);
+      localStorage.setItem("refereeName", refereeName);
+      localStorage.setItem("refereePhone", refereePhone);
+      localStorage.setItem("relationship", relationship);
 
-      // Redirect after 3 seconds
-      setTimeout(() => {
-        window.location.href = "checklimit.html";
-      }, 3000);
+      window.location.href = "checklimit.html";
     });
   </script>
+
 </body>
 </html>
