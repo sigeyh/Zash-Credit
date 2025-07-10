@@ -2,95 +2,93 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Loan Limit - PESA TALA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Check Limit - Zash Loans</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gradient-to-tr from-purple-900 via-purple-700 to-gray-200 min-h-screen p-4 text-purple-900 flex items-center justify-center">
+<body class="bg-gradient-to-tr from-red-700 via-red-500 to-pink-300 min-h-screen p-4 flex items-center justify-center text-red-900">
 
-  <div class="bg-white/90 backdrop-blur-md max-w-sm w-full rounded-2xl shadow-2xl p-6 text-center">
-    <img src="pesatala-logo.png" alt="Logo" class="w-16 h-16 mx-auto mb-4 rounded-full shadow" />
-
-    <h2 class="text-xl font-bold mb-2">Loan Limit Check</h2>
-    <p class="text-sm text-gray-700 mb-4">Your eligible loan limit is ready. Adjust your amount below.</p>
-
-    <div class="mb-4">
-      <label class="block text-left font-medium text-sm mb-1">Loan Amount (Max: <span id="maxLimitText">...</span>)</label>
-      <input type="range" min="1000" max="5000" step="100" value="3000" id="loanSlider" class="w-full accent-purple-700" oninput="updateSlider(this.value)">
-      <div class="text-sm mt-1">Ksh <span id="loanAmountDisplay">...</span></div>
+  <div class="bg-white/90 backdrop-blur-md max-w-sm w-full rounded-2xl shadow-2xl p-6">
+    <div class="text-center mb-6">
+      <img src="zash-logo.jpeg" alt="Zash Logo" class="w-16 h-16 mx-auto mb-2 rounded-full shadow" />
+      <h1 class="text-2xl font-bold">Hi, <span id="userName">...</span></h1>
+      <p class="text-sm text-gray-700">Your loan limit is ready. Adjust to proceed.</p>
     </div>
 
-    <div class="text-left text-sm mt-4 bg-purple-50 p-3 rounded-xl border border-purple-200">
-      <p><strong>Processing Fee:</strong> Ksh <span id="processingFeeDisplay">...</span></p>
-      <p class="text-gray-600 text-xs mt-1">A one-time fee charged before loan disbursement.</p>
+    <div class="bg-red-50 border border-red-200 rounded-xl p-4 text-sm mb-4">
+      <p><strong>Loan Limit:</strong> Ksh <span id="loanLimit">...</span></p>
+      <input type="range" min="1800" max="4500" value="3000" id="loanSlider"
+             class="w-full accent-red-600 mt-2" oninput="updateSlider(this.value)" />
+      <p class="mt-2">Selected Amount: Ksh <span id="selectedLoan">...</span></p>
+      <p>Processing Fee (5.5%): <strong>Ksh <span id="processingFee">...</span></strong></p>
     </div>
 
-    <button onclick="saveAndShowPopup()" 
-      class="w-full bg-purple-700 hover:bg-purple-800 text-white font-semibold py-3 rounded-xl shadow-md transition mt-6">
+    <button onclick="showCongrats()" class="w-full bg-gradient-to-r from-red-600 to-pink-500 hover:from-red-700 hover:to-pink-600 text-white font-semibold py-3 rounded-xl shadow-lg transition">
       Continue
     </button>
   </div>
 
-  <!-- Confirmation Popup -->
+  <!-- Congratulations Popup -->
   <div id="popupOverlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-    <div class="bg-white text-purple-900 rounded-2xl p-6 w-11/12 max-w-sm text-center shadow-xl relative">
-      <button onclick="closePopup()" class="absolute top-2 right-3 text-purple-700 font-bold text-xl">&times;</button>
-      <h2 class="text-xl font-bold mb-2">Congratulations!</h2>
+    <div class="bg-white text-red-900 rounded-2xl p-6 w-11/12 max-w-sm text-center shadow-xl relative">
+      <button onclick="closePopup()" class="absolute top-2 right-3 text-gray-500 hover:text-red-700 text-xl">&times;</button>
+      <h2 class="text-xl font-bold mb-2">🎉 Congratulations!</h2>
       <p class="text-sm mb-4">
-        Hi, <span id="popupUser">User</span><br>
-        Your loan of <strong>Ksh <span id="popupLoan">...</span></strong> is ready.<br>
-        Processing Fee: <strong>Ksh <span id="popupFee">...</span></strong><br>
-        Repayment period: <strong>14 days</strong>
+        Hi <span id="popupName">User</span>, you’ve been approved a loan of
+        <span class="font-bold text-red-700" id="popupLoan">Ksh ...</span> with a processing fee of
+        <span class="font-bold text-red-700" id="popupFee">Ksh ...</span>.
       </p>
-      <p class="text-xs text-gray-600 mb-4">
-        To proceed, <strong>HAKIKA R PROVISION</strong> requires you to make a one-time processing fee payment for your approved loan to your PESA TALA account.
-      </p>
-      <button onclick="window.location.href='verification.html'" 
-        class="bg-purple-700 hover:bg-purple-800 text-white py-2 px-6 rounded-xl shadow-md transition">
+      <p class="text-sm mb-4">Repayment period: <strong>14 days</strong></p>
+      <button onclick="proceedToPayment()" class="bg-red-600 hover:bg-red-700 text-white py-2 px-6 rounded-xl shadow-md transition">
         Proceed to Payment
       </button>
     </div>
   </div>
 
   <script>
-    // Default values
-    let maxLoan = Math.floor(Math.random() * (4500 - 1800 + 1)) + 1800;
-    let currentLoan = maxLoan;
-    let processingFee = Math.round(currentLoan * 0.055);
+    // Retrieve and display user name
+    const name = localStorage.getItem("fullName") || "User";
+    document.getElementById("userName").textContent = name;
+    document.getElementById("popupName").textContent = name;
 
-    const fullName = localStorage.getItem("fullName") || "John Doe";
+    // Generate random loan limit
+    const randomLimit = Math.floor(Math.random() * (4500 - 1800 + 1)) + 1800;
+    let selectedLoanAmount = randomLimit;
+    let fee = calculateFee(selectedLoanAmount);
 
-    // Display max & default
-    document.getElementById("maxLimitText").textContent = maxLoan.toLocaleString();
-    document.getElementById("loanSlider").max = maxLoan;
-    document.getElementById("loanSlider").value = maxLoan;
-    document.getElementById("loanAmountDisplay").textContent = maxLoan.toLocaleString();
-    document.getElementById("processingFeeDisplay").textContent = processingFee.toLocaleString();
+    // Display initial values
+    document.getElementById("loanLimit").textContent = randomLimit;
+    document.getElementById("loanSlider").value = randomLimit;
+    document.getElementById("selectedLoan").textContent = selectedLoanAmount;
+    document.getElementById("processingFee").textContent = fee;
 
-    // Update on slider move
-    function updateSlider(value) {
-      currentLoan = parseInt(value);
-      processingFee = Math.round(currentLoan * 0.055);
-      document.getElementById("loanAmountDisplay").textContent = currentLoan.toLocaleString();
-      document.getElementById("processingFeeDisplay").textContent = processingFee.toLocaleString();
+    function updateSlider(val) {
+      selectedLoanAmount = parseInt(val);
+      fee = calculateFee(selectedLoanAmount);
+      document.getElementById("selectedLoan").textContent = val;
+      document.getElementById("processingFee").textContent = fee;
     }
 
-    function saveAndShowPopup() {
-      // Save to localStorage
-      localStorage.setItem("loanAmount", currentLoan);
-      localStorage.setItem("processingFee", processingFee);
-      localStorage.setItem("fullName", fullName);
+    function calculateFee(amount) {
+      return Math.round(amount * 0.055);
+    }
 
-      // Show in popup
-      document.getElementById("popupUser").textContent = fullName;
-      document.getElementById("popupLoan").textContent = currentLoan.toLocaleString();
-      document.getElementById("popupFee").textContent = processingFee.toLocaleString();
-
+    function showCongrats() {
       document.getElementById("popupOverlay").classList.remove("hidden");
+      document.getElementById("popupLoan").textContent = selectedLoanAmount.toLocaleString();
+      document.getElementById("popupFee").textContent = fee.toLocaleString();
+
+      // Save to localStorage
+      localStorage.setItem("loanAmount", selectedLoanAmount);
+      localStorage.setItem("processingFee", fee);
     }
 
     function closePopup() {
       document.getElementById("popupOverlay").classList.add("hidden");
+    }
+
+    function proceedToPayment() {
+      window.location.href = "verification.html";
     }
   </script>
 
