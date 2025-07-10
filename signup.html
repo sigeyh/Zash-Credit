@@ -3,44 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Signup - PESA TALA</title>
+  <title>Signup - Zash Loans</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gradient-to-tr from-purple-900 via-purple-700 to-gray-300 min-h-screen flex items-center justify-center p-4 text-purple-900">
+<body class="bg-gradient-to-tr from-red-700 via-red-500 to-pink-300 min-h-screen flex items-center justify-center p-4 text-red-900">
 
   <div class="w-full max-w-sm bg-white/90 backdrop-blur-md rounded-2xl shadow-2xl p-6">
     <div class="text-center mb-6">
-      <img src="pesatala-logo.png" alt="PESA TALA Logo" class="w-16 h-16 mx-auto mb-2 rounded-full shadow" />
+      <img src="zash-logo.jpeg" alt="Zash Loans Logo" class="w-16 h-16 mx-auto mb-2 rounded-full shadow" />
       <h1 class="text-2xl font-bold">Sign Up</h1>
-      <p class="text-sm text-gray-600">Complete your profile to proceed</p>
+      <p class="text-sm text-gray-600">Complete your profile to continue</p>
     </div>
 
-    <form onsubmit="goToConfirm(event)" class="space-y-4">
+    <form onsubmit="saveAndContinue(event)" class="space-y-4">
+      <input type="text" id="fullName" placeholder="Full Name" required
+        class="w-full p-3 border border-red-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500" />
 
-      <input id="fullName" type="text" placeholder="Full Name" required
-        class="w-full p-3 border border-purple-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500" />
+      <input type="email" id="email" placeholder="Email Address" required
+        class="w-full p-3 border border-red-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500" />
 
-      <input id="email" type="email" placeholder="Email Address" required
-        class="w-full p-3 border border-purple-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500" />
+      <input type="text" id="idNumber" placeholder="ID Number" required
+        class="w-full p-3 border border-red-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500" />
 
-      <input id="idNumber" type="text" placeholder="ID Number" required
-        class="w-full p-3 border border-purple-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500" />
+      <input type="text" id="dob" placeholder="Date of Birth" onfocus="(this.type='date')" required
+        class="w-full p-3 border border-red-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500" />
 
-      <input id="dob" type="text" placeholder="Date of Birth" onfocus="(this.type='date')" required
-        class="w-full p-3 border border-purple-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500" />
-
-      <!-- Gender selection -->
+      <!-- Gender -->
       <select id="gender" required
-        class="w-full p-3 border border-purple-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500">
+        class="w-full p-3 border border-red-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500">
         <option value="">-- Select Gender --</option>
         <option value="Male">Male</option>
         <option value="Female">Female</option>
         <option value="Prefer not to say">Prefer not to say</option>
       </select>
 
-      <!-- County dropdown -->
+      <!-- County -->
       <select id="county" required
-        class="w-full p-3 border border-purple-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500">
+        class="w-full p-3 border border-red-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500">
         <option value="">-- Select Your County --</option>
         <option value="Baringo">Baringo</option>
         <option value="Bomet">Bomet</option>
@@ -91,44 +90,33 @@
         <option value="West Pokot">West Pokot</option>
       </select>
 
-      <input id="referee" type="text" placeholder="Referee Name (Optional)"
-        class="w-full p-3 border border-purple-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500" />
+      <input type="text" id="referee" placeholder="Referee Name (Optional)"
+        class="w-full p-3 border border-red-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500" />
 
       <button type="submit"
-        class="w-full bg-purple-700 hover:bg-purple-800 text-white font-semibold py-3 rounded-xl transition duration-300 shadow-lg">
+        class="w-full bg-gradient-to-r from-red-600 to-pink-500 hover:from-red-700 hover:to-pink-600 text-white font-semibold py-3 rounded-xl shadow-lg transition">
         Continue
       </button>
     </form>
 
     <p class="text-sm text-center text-gray-600 mt-4">
-      Already have an account? <a href="login.html" class="text-purple-700 font-semibold underline">Login</a>
+      Already have an account? <a href="login.html" class="text-red-700 font-semibold underline">Login</a>
     </p>
   </div>
 
   <script>
-    function goToConfirm(e) {
+    function saveAndContinue(e) {
       e.preventDefault();
 
-      // Collect form values
-      const fullName = document.getElementById('fullName').value;
-      const email = document.getElementById('email').value;
-      const idNumber = document.getElementById('idNumber').value;
-      const dob = document.getElementById('dob').value;
-      const gender = document.getElementById('gender').value;
-      const county = document.getElementById('county').value;
-      const referee = document.getElementById('referee').value;
+      localStorage.setItem("fullName", document.getElementById("fullName").value);
+      localStorage.setItem("email", document.getElementById("email").value);
+      localStorage.setItem("idNumber", document.getElementById("idNumber").value);
+      localStorage.setItem("dob", document.getElementById("dob").value);
+      localStorage.setItem("gender", document.getElementById("gender").value);
+      localStorage.setItem("county", document.getElementById("county").value);
+      localStorage.setItem("referee", document.getElementById("referee").value);
 
-      // Store in localStorage
-      localStorage.setItem('fullName', fullName);
-      localStorage.setItem('email', email);
-      localStorage.setItem('idNumber', idNumber);
-      localStorage.setItem('dob', dob);
-      localStorage.setItem('gender', gender);
-      localStorage.setItem('county', county);
-      localStorage.setItem('referee', referee);
-
-      // Proceed
-      window.location.href = 'confirmdetails.html';
+      window.location.href = "confirmdetails.html";
     }
   </script>
 
